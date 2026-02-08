@@ -1,4 +1,13 @@
-Project Progress
+## To-do List
+* Log-in Backend
+* Add Birthdate - not empty, not nullable: Has to be DateOnly
+* Add Address - not Required
+* Add Contact - not Required
+* Add optional property: "name?: string;" in dto for unrequired fields
+* Guards
+
+
+## Project Progress
  * USER Entity
 
 
