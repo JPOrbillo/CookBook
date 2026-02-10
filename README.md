@@ -1,14 +1,11 @@
 ## To-do List
 * Log-in Backend
-* Add Birthdate - not empty, not nullable: Has to be DateOnly
-* Add Address - not Required
-* Add Contact - not Required
-* Add optional property: "name?: string;" in dto for unrequired fields
 * Guards
 * Add User Entity Fields:
-  -Birthdate: Date Only not Date Time
-  -Address: Not Required
-  -Contact: Not Required
+ - Birthdate - not empty, not nullable: Has to be DateOnly
+ - Address - not Required
+ - Contact - not Required
+ - optional property: "name?: string;" in dto for unrequired fields
 
 
 
