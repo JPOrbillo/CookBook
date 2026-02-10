@@ -5,6 +5,11 @@
 * Add Contact - not Required
 * Add optional property: "name?: string;" in dto for unrequired fields
 * Guards
+* Add User Entity Fields:
+  -Birthdate: Date Only not Date Time
+  -Address: Not Required
+  -Contact: Not Required
+
 
 
 ## Project Progress
