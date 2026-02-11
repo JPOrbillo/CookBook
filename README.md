@@ -1,17 +1,17 @@
 ## To-do List
 * Log-in Backend
 * Guards
-* Add User Entity Fields:
- - Birthdate - not empty, not nullable: Has to be DateOnly
- - Address - not Required
- - Contact - not Required
- - optional property: "name?: string;" in dto for unrequired fields
+* Change Password
 
 
 
 ## Project Progress
- * USER Entity
-
+* USER Entity
+* Add User Entity Fields:
+  - Birthdate - not empty, not nullable: Has to be DateOnly
+  - Address - not Required
+  - Contact - not Required
+  - optional property: "name?: string;" in dto for unrequired fields
 
 
 

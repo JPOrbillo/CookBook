@@ -7,19 +7,46 @@ export class User {
               
     //TypeORM documentations says "nullable:false" is default
     @Column({
-        unique:true
+        unique:true,
+        nullable:false
     })
     username:string
 
-    @Column()
+
+
+    @Column({
+        nullable:false
+    })
     password:string
 
 
-    @Column()
+
+    @Column({
+        nullable:false
+    })
     firstname:string
 
+
     
-    @Column()
+    @Column({
+        nullable:false
+    })
     lastname:string
+
+
+
+    @Column({
+        type:'date',
+        nullable:true
+    })
+   birthdate?:string
+
+   
+
+   @Column({
+        nullable:true
+   })
+   contact?:string
+
    
 }
