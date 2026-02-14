@@ -6,6 +6,7 @@ export class User {
     id:string;                  
               
     //TypeORM documentations says "nullable:false" is default
+
     @Column({
         unique:true,
         nullable:false
