@@ -37,6 +37,11 @@ export class User {
 
 
     @Column({
+        nullable:true
+    })
+    address:string
+
+    @Column({
         type:'date',
         nullable:true
     })

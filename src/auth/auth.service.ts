@@ -27,7 +27,7 @@ export class AuthService {
         throw new UnauthorizedException('Invalid credentials')
   }
 
-  return user
+  return {message: 'Successfully logged in! Welcome ', user}
 
       
     }

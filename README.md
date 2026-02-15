@@ -1,12 +1,18 @@
 ## To-do List
-* Log-in Backend
+
 * Guards
 * Change Password
 
 
 
+
 ## Project Progress
+* Log-in Backend
+  - auth controller,
+  - auth service
+
 * USER Entity
+
 * Add User Entity Fields:
   - Birthdate - not empty, not nullable: Has to be DateOnly
   - Address - not Required
