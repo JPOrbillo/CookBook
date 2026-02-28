@@ -1,25 +1,21 @@
 ## To-do List
 
-* Guards
-* Change Password
 
-
-
+- Change Password
 
 ## Project Progress
-* Log-in Backend
+- Validation Guards
+- Log-in Backend
   - auth controller,
   - auth service
 
-* USER Entity
+- USER Entity
 
-* Add User Entity Fields:
+- Add User Entity Fields:
   - Birthdate - not empty, not nullable: Has to be DateOnly
   - Address - not Required
   - Contact - not Required
   - optional property: "name?: string;" in dto for unrequired fields
-
-
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
