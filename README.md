@@ -1,18 +1,22 @@
 ## To-do List
 
-- Change Password EndPoint
-
 ## Project Progress
+
 - Validation Guards
+
 - Log-in Backend
   - auth controller
   - auth service
+
 - USER Entity
+
 - Add User Entity Fields:
   - Birthdate - not empty, not nullable: Has to be DateOnly
   - Address - not Required
   - Contact - not Required
   - optional property: "name?: string;" in dto for unrequired fields
+- Change Password EndPoint
+  -change password dto
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
