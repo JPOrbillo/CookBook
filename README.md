@@ -1,16 +1,13 @@
 ## To-do List
 
-
-- Change Password
+- Change Password EndPoint
 
 ## Project Progress
 - Validation Guards
 - Log-in Backend
-  - auth controller,
+  - auth controller
   - auth service
-
 - USER Entity
-
 - Add User Entity Fields:
   - Birthdate - not empty, not nullable: Has to be DateOnly
   - Address - not Required

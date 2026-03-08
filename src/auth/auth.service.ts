@@ -20,6 +20,7 @@ export class AuthService {
       where: { username: authLogIn.username },
     });
 
+    //Checks if user exists, also needed because isMatch needs to compare the password and if no user is found it will throw an error 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }

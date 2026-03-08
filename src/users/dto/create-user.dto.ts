@@ -34,14 +34,14 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   @IsDateString()
-  birthdate: string;
+  birthdate?: string;
 
   @IsString()
   @IsOptional()
-  address: string;
+  address?: string;
 
   @IsOptional()
   @IsString()
   @IsMobilePhone(['en-PH', 'en-US'] as any)
-  contact: string;
+  contact?: string;
 }
