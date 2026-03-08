@@ -32,9 +32,9 @@ export class CreateUserDto {
   lastname: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @IsDateString()
-  birthdate?: string;
+  birthdate: string;
 
   @IsString()
   @IsOptional()

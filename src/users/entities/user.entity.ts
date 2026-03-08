@@ -35,9 +35,9 @@ export class User {
 
   @Column({
     type: 'date',
-    nullable: true,
+    nullable: false,
   })
-  birthdate?: string;
+  birthdate: string;
 
   @Column({
     nullable: true,
