@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { UnauthorizedException } from '@nestjs/common';
-import { IS_PUBLIC_KEY } from 'src/customDecorators/isPublic.decorator';
+import { IS_PUBLIC_KEY } from 'src/resources/customDecorators/isPublic.decorator';
 import { Reflector } from '@nestjs/core';
 //this is an auth guard for all routes when logged in.
 //it checks if the user is logged in and has a valid token
