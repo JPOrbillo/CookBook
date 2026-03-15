@@ -9,6 +9,9 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
+  validateUser(username: string, password: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectRepository(User)
     private repo: Repository<User>,
@@ -16,20 +19,19 @@ export class AuthService {
   ) {}
 
   async logIn(authLogIn: logInDto) {
+    //Checks if user exists, also needed because isMatch needs to compare the password and if no user is found it will throw an error
     const user = await this.repo.findOne({
       where: { username: authLogIn.username },
     });
-
-    //Checks if user exists, also needed because isMatch needs to compare the password and if no user is found it will throw an error 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
     const isMatch = await bcrypt.compare(authLogIn.password, user.password);
-
     if (!isMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
+
     const payload = {
       sub: user.id,
       fullname: user.firstname + ' ' + user.lastname,
