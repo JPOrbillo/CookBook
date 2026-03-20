@@ -57,7 +57,7 @@ export class UsersService {
     return this.repo.find();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} user`;
   }
 

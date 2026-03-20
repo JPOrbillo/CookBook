@@ -5,20 +5,15 @@ import { Repository } from 'typeorm';
 import { logInDto } from 'src/users/dto/login-user.dto';
 import * as bcrypt from 'bcrypt';
 import { UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  validateUser(username: string, password: string) {
-    throw new Error('Method not implemented.');
-  }
   constructor(
     @InjectRepository(User)
     private repo: Repository<User>,
-    private jwtService: JwtService,
   ) {}
 
-  async logIn(authLogIn: logInDto) {
+  async validateUser(authLogIn: logInDto): Promise<any> {
     //Checks if user exists, also needed because isMatch needs to compare the password and if no user is found it will throw an error
     const user = await this.repo.findOne({
       where: { username: authLogIn.username },
@@ -32,11 +27,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = {
-      sub: user.id,
-      fullname: user.firstname + ' ' + user.lastname,
-    };
-
-    return { token: await this.jwtService.signAsync(payload) };
+    if (user && isMatch) {
+      const { password, ...result } = user;
+      return result;
+    } else {
+      return false;
+    }
   }
 }
