@@ -40,8 +40,8 @@ export class CreateUserDto {
   @IsOptional()
   address?: string;
 
-  @IsOptional()
   @IsString()
   @IsMobilePhone(['en-PH', 'en-US'] as any)
+  @IsOptional()
   contact?: string;
 }

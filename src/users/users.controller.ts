@@ -11,6 +11,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Public } from 'src/resources/customDecorators/isPublic.decorator';
 import { ChangeUserPasswordDto } from './dto/change-userPassword.dto';
+import { AuthGuard } from 'src/resources/guards/auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -25,6 +27,7 @@ export class UsersController {
   }
 
   //calls the changePassword method in the service for the logic to change password
+  @UseGuards(AuthGuard)
   @Patch('changePass/:username')
   changePassword(
     @Param('username') id: string,
@@ -33,6 +36,7 @@ export class UsersController {
     return this.usersService.changePassword(id, changeUserPasswordDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get('allUsers')
   findAll() {
     return this.usersService.findAll();
