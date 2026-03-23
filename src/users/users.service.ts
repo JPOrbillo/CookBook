@@ -22,6 +22,19 @@ export class UsersService {
     return this.repo.save(createUser);
   }
 
+  findAll() {
+    return this.repo.find();
+  }
+
+  async findOne(user: any) {
+    const foundUser = await this.repo.findOne({ where: { id: user } });
+    if (!foundUser) {
+      throw new Error('User not found');
+    }
+    const { password, ...result } = foundUser;
+    return result;
+  }
+
   async changePassword(
     id: string,
     changeUserPasswordDto: ChangeUserPasswordDto,
@@ -51,14 +64,6 @@ export class UsersService {
 
     const updateUserPassword = this.repo.update(id, { password: hash });
     return updateUserPassword;
-  }
-
-  findAll() {
-    return this.repo.find();
-  }
-
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
