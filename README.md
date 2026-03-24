@@ -1,6 +1,10 @@
 ## To-do List
 
+- Add entities that is required for the backend
+
 ## Project Progress
+
+- Jwt Passports + Local passport for auth guards
 
 - Validation Guards
 

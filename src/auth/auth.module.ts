@@ -16,7 +16,7 @@ import { JwtStrategy } from 'src/resources/passport strategies/jwt.strategy';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('SECRET_KEY'),
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '1h' },
       }),
     }),
   ],
