@@ -12,7 +12,6 @@ import { User } from './users/entities/user.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { logger } from './resources/middleware/logger.middleware';
-import { JwtAuthGuard } from './resources/guards/jwt.auth-guard';
 
 @Module({
   imports: [
@@ -31,6 +30,7 @@ import { JwtAuthGuard } from './resources/guards/jwt.auth-guard';
         database: configService.get<string>('DB_DATABASE'),
         entities: [User],
         synchronize: true,
+        autoLoadEntities: true,
       }),
     }),
     UsersModule,

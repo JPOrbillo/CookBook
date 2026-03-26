@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,32 +16,37 @@ export class AuthService {
   ) {}
 
   async validateUser(authLogIn: logInDto): Promise<any> {
-    //Checks if user exists, also needed because isMatch needs to compare the password and if no user is found it will throw an error
-    const user = await this.repo.findOne({
-      where: { username: authLogIn.username },
-    });
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
+    try {
+      //Checks if user exists, also needed because isMatch needs to compare the password and if no user is found it will throw an error
+      const user = await this.repo.findOne({
+        where: { username: authLogIn.username },
+      });
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
 
-    const isMatch = await bcrypt.compare(authLogIn.password, user.password);
-    if (!isMatch) {
-      throw new UnauthorizedException('Password does not match');
-    }
+      const isMatch = await bcrypt.compare(authLogIn.password, user.password);
+      if (!isMatch) {
+        throw new UnauthorizedException('Invalid password');
+      }
 
-    if (user && isMatch) {
       const { password, ...result } = user;
       return result;
+    } catch (error) {
+      console.error('Error validating user:', error);
+      return null;
     }
-
-    return null;
   }
 
-  async login(user: any) {
+  async login(user: any): Promise<{ token: string } | null> {
     const payload = {
       user: user.firstname + ' ' + user.lastname,
-      sub: user.id,
+      sub: user.user_ID,
     };
+    if (!user) {
+      return null;
+    }
+
     return {
       token: this.jwtService.sign(payload),
     };

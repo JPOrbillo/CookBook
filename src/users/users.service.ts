@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,10 +26,10 @@ export class UsersService {
     return this.repo.find();
   }
 
-  async findOne(user: any) {
-    const foundUser = await this.repo.findOne({ where: { id: user } });
+  async userProfile(userID: string) {
+    const foundUser = await this.repo.findOne({ where: { user_ID: userID } });
     if (!foundUser) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
     const { password, ...result } = foundUser;
     return result;
@@ -44,8 +44,6 @@ export class UsersService {
       where: { username: changeUserPasswordDto.username },
     });
 
-    //throws an error if there is no user found with the provided username
-    //this cannot be removed because it is promised in isMatch and it expects a user to be found
     if (!user) {
       throw new Error('User not found');
     }

@@ -39,14 +39,14 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('allUsers')
-  async findAll(@Request() req: any) {
+  async findAll() {
     return this.usersService.findAll();
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('userProfile')
-  async findOne(@Request() req: any) {
-    return this.usersService.findOne(req.user.id);
+  async userProfile(@Request() req: any) {
+    return this.usersService.userProfile(req.user.id);
   }
 
   @Delete(':id')
