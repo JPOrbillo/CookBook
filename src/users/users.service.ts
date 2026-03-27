@@ -19,7 +19,8 @@ export class UsersService {
     const salt = 10;
     const hash = await bcrypt.hash(createUserDto.password, salt);
     const createUser = this.repo.create({ ...createUserDto, password: hash });
-    return this.repo.save(createUser);
+    const saveUser = await this.repo.save(createUser);
+    return 'user created successfully';
   }
 
   findAll() {

@@ -12,6 +12,7 @@ import { User } from './users/entities/user.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { logger } from './resources/middleware/logger.middleware';
+import { UserProfile } from './users/entities/user-profile.entity';
 
 @Module({
   imports: [
@@ -28,7 +29,6 @@ import { logger } from './resources/middleware/logger.middleware';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [User],
         synchronize: true,
         autoLoadEntities: true,
       }),

@@ -1,10 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { UserProfile } from './user-profile.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   user_ID: string;
 
+  @OneToOne(() => UserProfile, (userProfile) => userProfile.user)
+  @JoinColumn({ name: 'user_profile_ID' })
+  userProfile: UserProfile;
   @Column({
     type: 'varchar',
     unique: true,
