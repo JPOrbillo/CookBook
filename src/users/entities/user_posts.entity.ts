@@ -2,7 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
@@ -32,5 +31,5 @@ export class UserPosts {
     type: 'text',
     nullable: false,
   })
-  recipeCaption: string;
+  recipe: string;
 }

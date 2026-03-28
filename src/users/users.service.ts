@@ -15,13 +15,6 @@ export class UsersService {
   ) {}
 
   //this is the logic for creating a user, it hashes password before saving it to the database for security.
-  async create(createUserDto: CreateUserDto) {
-    const salt = 10;
-    const hash = await bcrypt.hash(createUserDto.password, salt);
-    const createUser = this.repo.create({ ...createUserDto, password: hash });
-    const saveUser = await this.repo.save(createUser);
-    return 'user created successfully';
-  }
 
   findAll() {
     return this.repo.find();

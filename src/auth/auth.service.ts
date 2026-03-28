@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -6,6 +10,7 @@ import { logInDto } from 'src/users/dto/login-user.dto';
 import * as bcrypt from 'bcrypt';
 import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -50,5 +55,21 @@ export class AuthService {
     return {
       token: this.jwtService.sign(payload),
     };
+  }
+
+  async create(createUserDto: CreateUserDto) {
+    const usernameDuplicate = await this.repo.findOne({
+      where: { username: createUserDto.username },
+    });
+
+    if (usernameDuplicate) {
+      throw new ConflictException('Username already exists');
+    }
+    const salt = 10;
+    const hash = await bcrypt.hash(createUserDto.password, salt);
+    const createUser = this.repo.create({ ...createUserDto, password: hash });
+    await this.repo.save(createUser);
+
+    return 'user created successfully';
   }
 }

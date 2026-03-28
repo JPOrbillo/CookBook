@@ -15,6 +15,7 @@ export class User {
   @OneToOne(() => UserProfile, (userProfile) => userProfile.user)
   @JoinColumn({ name: 'user_profile_ID' })
   userProfile: UserProfile;
+
   @Column({
     type: 'varchar',
     unique: true,
