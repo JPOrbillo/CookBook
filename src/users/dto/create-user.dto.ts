@@ -5,9 +5,9 @@ import {
   IsEmail,
   IsOptional,
   IsDateString,
-  IsMobilePhone,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { UserProfile } from '../entities/user-profile.entity';
 
 export class CreateUserDto {
   @Transform(({ value }) => {

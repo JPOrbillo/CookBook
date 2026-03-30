@@ -11,6 +11,7 @@ import * as bcrypt from 'bcrypt';
 import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { UserProfile } from 'src/users/entities/user-profile.entity';
 
 @Injectable()
 export class AuthService {
@@ -18,8 +19,42 @@ export class AuthService {
     @InjectRepository(User)
     private repo: Repository<User>,
     private jwtService: JwtService,
-  ) {}
 
+    @InjectRepository(UserProfile)
+    private userProfileRepo: Repository<UserProfile>,
+  ) {}
+  //**************************************************************************************//
+  async create(createUserDto: CreateUserDto): Promise<string> {
+    const usernameDuplicate = await this.repo.findOne({
+      where: { username: createUserDto.username },
+    });
+
+    if (usernameDuplicate) {
+      throw new ConflictException('Username already exists');
+    }
+    const salt = 10;
+    const hash = await bcrypt.hash(createUserDto.password, salt);
+
+    const createUser = this.repo.create({
+      ...createUserDto,
+      password: hash,
+    });
+    await this.repo.save(createUser);
+
+    const userProfile = this.userProfileRepo.create({
+      user: createUser,
+    });
+
+    await this.userProfileRepo.save(userProfile);
+
+    createUser.profile = userProfile;
+    await this.repo.save(createUser);
+
+    console.log(createUser);
+    console.log(userProfile);
+    return 'user created successfully';
+  }
+  //**************************************************************************************//
   async validateUser(authLogIn: logInDto): Promise<any> {
     try {
       //Checks if user exists, also needed because isMatch needs to compare the password and if no user is found it will throw an error
@@ -42,7 +77,7 @@ export class AuthService {
       return null;
     }
   }
-
+  //**************************************************************************************//
   async login(user: any): Promise<{ token: string } | null> {
     const payload = {
       user: user.firstname + ' ' + user.lastname,
@@ -55,21 +90,5 @@ export class AuthService {
     return {
       token: this.jwtService.sign(payload),
     };
-  }
-
-  async create(createUserDto: CreateUserDto) {
-    const usernameDuplicate = await this.repo.findOne({
-      where: { username: createUserDto.username },
-    });
-
-    if (usernameDuplicate) {
-      throw new ConflictException('Username already exists');
-    }
-    const salt = 10;
-    const hash = await bcrypt.hash(createUserDto.password, salt);
-    const createUser = this.repo.create({ ...createUserDto, password: hash });
-    await this.repo.save(createUser);
-
-    return 'user created successfully';
   }
 }

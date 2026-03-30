@@ -10,11 +10,13 @@ import { UserProfile } from './user-profile.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  user_ID: string;
+  id: string;
 
-  @OneToOne(() => UserProfile, (userProfile) => userProfile.user)
-  @JoinColumn({ name: 'user_profile_ID' })
-  userProfile: UserProfile;
+  @OneToOne(() => UserProfile, (userProfile) => userProfile.id, {})
+  @JoinColumn({
+    name: 'userProfile_ID',
+  })
+  profile: UserProfile;
 
   @Column({
     type: 'varchar',

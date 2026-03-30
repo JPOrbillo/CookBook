@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -14,14 +13,12 @@ export class UsersService {
     private repo: Repository<User>,
   ) {}
 
-  //this is the logic for creating a user, it hashes password before saving it to the database for security.
-
   findAll() {
     return this.repo.find();
   }
 
   async userProfile(userID: string) {
-    const foundUser = await this.repo.findOne({ where: { user_ID: userID } });
+    const foundUser = await this.repo.findOne({ where: { id: userID } });
     if (!foundUser) {
       throw new NotFoundException('User not found');
     }

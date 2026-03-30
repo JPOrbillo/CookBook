@@ -8,9 +8,7 @@ import { UserPosts } from './entities/user_posts.entity';
 import { SavedRecipes } from './entities/saved_recipes.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User, UserProfile, UserPosts, SavedRecipes]),
-  ],
+  imports: [TypeOrmModule.forFeature([User, UserPosts, SavedRecipes])],
   controllers: [UsersController],
   providers: [UsersService],
 })

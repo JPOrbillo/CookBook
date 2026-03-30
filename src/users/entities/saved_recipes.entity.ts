@@ -12,7 +12,7 @@ export class SavedRecipes {
   @JoinColumn({ name: 'post_ID' })
   recipe: UserPosts;
 
-  @ManyToOne(() => User, (user) => user.user_ID)
+  @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'user_ID' })
   user: User;
 }
