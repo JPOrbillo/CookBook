@@ -5,24 +5,30 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ChangeUserPasswordDto } from './dto/change-userPassword.dto';
+import { UserProfile } from './entities/user-profile.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private repo: Repository<User>,
+
+    @InjectRepository(UserProfile)
+    private userProfileRepo: Repository<UserProfile>,
   ) {}
 
   findAll() {
     return this.repo.find();
   }
 
-  async userProfile(userID: string) {
-    const foundUser = await this.repo.findOne({ where: { id: userID } });
+  async userProfile(userID: any) {
+    const foundUser = await this.userProfileRepo.findOne({
+      where: { id: userID },
+    });
     if (!foundUser) {
       throw new NotFoundException('User not found');
     }
-    const { password, ...result } = foundUser;
+    const { ...result } = foundUser;
     return result;
   }
 

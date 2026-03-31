@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { UserProfile } from './user-profile.entity';
 
+//has joined column from profile which is the profile ID
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')

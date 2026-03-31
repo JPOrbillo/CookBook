@@ -7,37 +7,36 @@ import {
   IsDateString,
 } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { UserProfile } from '../entities/user-profile.entity';
 
 export class CreateUserDto {
   @Transform(({ value }) => {
     return value.trim();
   })
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   @IsEmail()
   username: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   @MinLength(5, { message: 'Password too short (minimum 5 characters)' })
   password: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   firstname: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   lastname: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsString()
   @IsDateString()
   birthdate: string;
 
-  @IsString()
   @IsOptional()
+  @IsString()
   address?: string;
 
   @IsOptional()

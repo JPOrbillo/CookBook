@@ -4,10 +4,13 @@ import {
   JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
+  Column,
 } from 'typeorm';
 import { User } from './user.entity';
 import { UserPosts } from './user_posts.entity';
 import { SavedRecipes } from './saved_recipes.entity';
+
+//has joined column from entity which is the user id
 
 @Entity()
 export class UserProfile {
@@ -19,11 +22,10 @@ export class UserProfile {
   @JoinColumn({ name: 'user_ID' })
   user: User;
 
-  @OneToOne(() => User, (user) => user.firstname + user.lastname, {
-    eager: true,
-    cascade: true,
+  @Column({
+    type: 'varchar',
+    nullable: false,
   })
-  @JoinColumn({ name: 'fullname' })
   fullname: string;
 
   @OneToMany(() => UserPosts, (userPosts) => userPosts.user)

@@ -43,6 +43,7 @@ export class AuthService {
 
     const userProfile = this.userProfileRepo.create({
       user: createUser,
+      fullname: createUser.firstname + ' ' + createUser.lastname,
     });
 
     await this.userProfileRepo.save(userProfile);
@@ -50,8 +51,6 @@ export class AuthService {
     createUser.profile = userProfile;
     await this.repo.save(createUser);
 
-    console.log(createUser);
-    console.log(userProfile);
     return 'user created successfully';
   }
   //**************************************************************************************//
@@ -78,10 +77,10 @@ export class AuthService {
     }
   }
   //**************************************************************************************//
-  async login(user: any): Promise<{ token: string } | null> {
+  async login(user: User): Promise<{ token: string } | null> {
     const payload = {
       user: user.firstname + ' ' + user.lastname,
-      sub: user.user_ID,
+      sub: user.id,
     };
     if (!user) {
       return null;
