@@ -13,7 +13,7 @@ export class UserPosts {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => UserProfile, (user) => user.user)
+  @ManyToOne(() => UserProfile, (user) => user.userProfile)
   @JoinColumn({ name: 'user_ID' })
   user!: UserProfile;
 

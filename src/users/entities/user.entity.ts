@@ -16,12 +16,6 @@ export class User {
   @OneToOne(() => UserProfile, (userProfile) => userProfile.userProfile)
   userProfile!: UserProfile;
 
-  @OneToOne(() => UserProfile, (userProfile) => userProfile.user, {
-    cascade: true,
-  })
-  @JoinColumn({ name: 'userPorfile_ID' })
-  profile!: UserProfile;
-
   @Column({
     type: 'varchar',
     unique: true,

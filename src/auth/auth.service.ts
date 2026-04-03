@@ -43,7 +43,7 @@ export class AuthService {
     await this.repo.save(createUser);
 
     const userProfile = this.userProfileRepo.create({
-      user: createUser,
+      userProfile: createUser,
       fullname: createUser.firstname + ' ' + createUser.lastname,
     });
 

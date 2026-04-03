@@ -19,7 +19,6 @@ import { JwtAuthGuard } from 'src/resources/guards/jwt.auth-guard';
 export class PostsController {
   constructor(private postsService: PostsService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post('postRecipe')
   create(@Body() createPostDto: createPosts, @Request() req: any) {
     return this.postsService.createPost(createPostDto, req.user.id);

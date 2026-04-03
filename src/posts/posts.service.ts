@@ -5,7 +5,6 @@ import { UserPosts } from './entities/post.entity';
 import { Repository } from 'typeorm';
 import { createPosts } from './dto/createPosts.dto';
 import { UserProfile } from 'src/users/entities/user-profile.entity';
-import { create } from 'domain';
 
 @Injectable()
 export class PostsService {

@@ -17,9 +17,6 @@ export class UserProfile {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @OneToOne(() => User, (user) => user.profile)
-  user!: User;
-
   //Foreign key to User entity
   @OneToOne(() => User, (user) => user.userProfile, { cascade: true })
   @JoinColumn({ name: 'user_ID' })
