@@ -7,6 +7,7 @@ import {
   Patch,
   UseGuards,
   Request,
+  Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ChangeUserPasswordDto } from './dto/change-userPassword.dto';
@@ -16,14 +17,9 @@ import { JwtAuthGuard } from 'src/resources/guards/jwt.auth-guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  //calls the changePassword method in the service for the logic to change password
-
-  @Patch('changePass/:username')
-  changePassword(
-    @Param('username') id: string,
-    @Body() changeUserPasswordDto: ChangeUserPasswordDto,
-  ) {
-    return this.usersService.changePassword(id, changeUserPasswordDto);
+  @Post('postRecipe')
+  async postRecipe() {
+    return;
   }
 
   @UseGuards(JwtAuthGuard)
@@ -36,6 +32,16 @@ export class UsersController {
   @Get('userProfile')
   async userProfile(@Request() req: any) {
     return this.usersService.userProfile(req.user.id);
+  }
+
+  //calls the changePassword method in the service for the logic to change password
+
+  @Patch('changePass/:username')
+  changePassword(
+    @Param('username') id: string,
+    @Body() changeUserPasswordDto: ChangeUserPasswordDto,
+  ) {
+    return this.usersService.changePassword(id, changeUserPasswordDto);
   }
 
   @Delete(':id')

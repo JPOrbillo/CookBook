@@ -39,6 +39,7 @@ export class AuthService {
       ...createUserDto,
       password: hash,
     });
+
     await this.repo.save(createUser);
 
     const userProfile = this.userProfileRepo.create({
@@ -46,15 +47,14 @@ export class AuthService {
       fullname: createUser.firstname + ' ' + createUser.lastname,
     });
 
-    await this.userProfileRepo.save(userProfile);
-
-    createUser.profile = userProfile;
     await this.repo.save(createUser);
+
+    await this.userProfileRepo.save(userProfile);
 
     return 'user created successfully';
   }
   //**************************************************************************************//
-  async validateUser(authLogIn: logInDto): Promise<any> {
+  async validateUser(authLogIn: logInDto): Promise<object | null> {
     try {
       //Checks if user exists, also needed because isMatch needs to compare the password and if no user is found it will throw an error
       const user = await this.repo.findOne({

@@ -15,25 +15,25 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  username: string;
+  username!: string;
 
   @IsNotEmpty()
   @IsString()
   @MinLength(5, { message: 'Password too short (minimum 5 characters)' })
-  password: string;
+  password!: string;
 
   @IsNotEmpty()
   @IsString()
-  firstname: string;
+  firstname!: string;
 
   @IsNotEmpty()
   @IsString()
-  lastname: string;
+  lastname!: string;
 
   @IsNotEmpty()
   @IsString()
   @IsDateString()
-  birthdate: string;
+  birthdate!: string;
 
   @IsOptional()
   @IsString()

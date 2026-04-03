@@ -1,10 +1,10 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-export class userPostDto {
+export class createPosts {
   @IsString()
   @IsNotEmpty()
-  dishname: string;
+  dishname!: string;
 
   @IsString()
   @IsNotEmpty()
-  recipe: string;
+  recipe!: string;
 }

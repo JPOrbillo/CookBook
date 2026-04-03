@@ -29,7 +29,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new NotFoundException('Invalid token payload');
     }
 
-    const result = { userId: payload.sub };
+    const result = {
+      id: payload.sub,
+      fullname: payload.firstname + ' ' + payload.lastname,
+    };
+
     return result;
   }
 }

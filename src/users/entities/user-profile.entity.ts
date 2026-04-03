@@ -7,30 +7,33 @@ import {
   Column,
 } from 'typeorm';
 import { User } from './user.entity';
-import { UserPosts } from './user_posts.entity';
-import { SavedRecipes } from './saved_recipes.entity';
+import { UserPosts } from 'src/posts/entities/post.entity';
+import { SavedRecipes } from '../../posts/entities/saved_recipes.entity';
 
 //has joined column from entity which is the user id
 
 @Entity()
 export class UserProfile {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
+
+  @OneToOne(() => User, (user) => user.profile)
+  user!: User;
 
   //Foreign key to User entity
-  @OneToOne(() => User, (user) => user.id)
+  @OneToOne(() => User, (user) => user.userProfile, { cascade: true })
   @JoinColumn({ name: 'user_ID' })
-  user: User;
+  userProfile!: User;
 
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  fullname: string;
+  fullname!: string;
 
-  @OneToMany(() => UserPosts, (userPosts) => userPosts.user)
-  posts: UserPosts[];
+  @OneToMany(() => UserPosts, (Posts) => Posts.user)
+  posts!: UserPosts[];
 
   @OneToMany(() => SavedRecipes, (savedRecipes) => savedRecipes.user)
-  savedRecipes: SavedRecipes[];
+  savedRecipes!: SavedRecipes[];
 }

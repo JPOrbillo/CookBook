@@ -11,50 +11,53 @@ import { UserProfile } from './user-profile.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
-  @OneToOne(() => UserProfile, (userProfile) => userProfile.id, {})
-  @JoinColumn({
-    name: 'userProfile_ID',
+  @OneToOne(() => UserProfile, (userProfile) => userProfile.userProfile)
+  userProfile!: UserProfile;
+
+  @OneToOne(() => UserProfile, (userProfile) => userProfile.user, {
+    cascade: true,
   })
-  profile: UserProfile;
+  @JoinColumn({ name: 'userPorfile_ID' })
+  profile!: UserProfile;
 
   @Column({
     type: 'varchar',
     unique: true,
     nullable: false,
   })
-  username: string;
+  username!: string;
 
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  password: string;
+  password!: string;
 
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  firstname: string;
+  firstname!: string;
 
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  lastname: string;
+  lastname!: string;
 
   @Column({
     type: 'varchar',
     nullable: true,
   })
-  address: string;
+  address!: string;
 
   @Column({
     type: 'date',
     nullable: false,
   })
-  birthdate: string;
+  birthdate?: string;
 
   @Column({
     type: 'varchar',
