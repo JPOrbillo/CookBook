@@ -13,13 +13,9 @@ export class UserPosts {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @ManyToOne(() => UserProfile, (user) => user.userProfile)
-  @JoinColumn({ name: 'user_ID' })
-  user!: UserProfile;
-
-  @ManyToOne(() => UserProfile, (userProfile) => userProfile.fullname)
-  @JoinColumn({ name: 'fullname' })
-  author!: string;
+  @ManyToOne(() => UserProfile, (user) => user.posts)
+  @JoinColumn({ name: 'profile_id' })
+  userProfile!: UserProfile;
 
   @Column({
     type: 'varchar',

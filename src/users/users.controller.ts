@@ -17,11 +17,6 @@ import { JwtAuthGuard } from 'src/resources/guards/jwt.auth-guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('postRecipe')
-  async postRecipe() {
-    return;
-  }
-
   @UseGuards(JwtAuthGuard)
   @Get('allUsers')
   async findAll() {

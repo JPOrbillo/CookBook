@@ -23,12 +23,18 @@ export class UsersService {
 
   async userProfile(userID: any) {
     const foundUser = await this.userProfileRepo.findOne({
-      where: { userProfile: userID },
+      where: { userProfile: { id: userID } },
+      relations: {
+        userProfile: false,
+      },
     });
+
     if (!foundUser) {
       throw new NotFoundException('User not found');
     }
+
     const { ...result } = foundUser;
+
     return result;
   }
 

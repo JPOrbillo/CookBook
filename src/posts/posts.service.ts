@@ -5,38 +5,42 @@ import { UserPosts } from './entities/post.entity';
 import { Repository } from 'typeorm';
 import { createPosts } from './dto/createPosts.dto';
 import { UserProfile } from 'src/users/entities/user-profile.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class PostsService {
   constructor(
-    @InjectRepository(UserProfile)
-    private userProfileRepo: Repository<UserProfile>,
     @InjectRepository(UserPosts)
     private userPostRepo: Repository<UserPosts>,
+    @InjectRepository(UserProfile)
+    private userProfileRepo: Repository<UserProfile>,
   ) {}
 
   async createPost(createPostDto: createPosts, userID: string) {
-    const user = await this.userProfileRepo.findOne({ where: { id: userID } });
+    const foundUser = await this.userProfileRepo.findOne({
+      where: { userProfile: { id: userID } },
+      relations: {
+        posts: true,
+      },
+    });
 
-    if (!user) {
+    if (!foundUser) {
       throw new NotFoundException('User does not exist');
     }
+
     const postRecipe = this.userPostRepo.create({
       ...createPostDto,
     });
+    const postedRecipe = await this.userPostRepo.save(postRecipe);
 
-    await this.userPostRepo.save(postRecipe);
+    foundUser.posts.push(postedRecipe);
+    await this.userProfileRepo.save(foundUser);
 
-    const { ...saveRescpe } = user;
-    return saveRescpe;
+    return postedRecipe;
   }
 
   findAll() {
     return `This action returns all posts`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
   }
 
   update(id: number, updatePostDto: updatePosts) {

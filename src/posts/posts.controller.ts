@@ -19,19 +19,19 @@ import { JwtAuthGuard } from 'src/resources/guards/jwt.auth-guard';
 export class PostsController {
   constructor(private postsService: PostsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post('postRecipe')
   create(@Body() createPostDto: createPosts, @Request() req: any) {
     return this.postsService.createPost(createPostDto, req.user.id);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('savePost')
+  savePost() {}
+
   @Get()
   findAll() {
     return this.postsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
   }
 
   @Patch(':id')

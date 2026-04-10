@@ -28,9 +28,9 @@ export class UserProfile {
   })
   fullname!: string;
 
-  @OneToMany(() => UserPosts, (Posts) => Posts.user)
-  posts!: UserPosts[];
-
   @OneToMany(() => SavedRecipes, (savedRecipes) => savedRecipes.user)
   savedRecipes!: SavedRecipes[];
+
+  @OneToMany(() => UserPosts, (posts) => posts.userProfile)
+  posts!: UserPosts[];
 }

@@ -2,7 +2,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class createPosts {
   @IsString()
   @IsNotEmpty()
-  dishname!: string;
+  dish_name!: string;
 
   @IsString()
   @IsNotEmpty()
