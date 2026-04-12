@@ -5,7 +5,6 @@ import { UserPosts } from './entities/post.entity';
 import { Repository } from 'typeorm';
 import { createPosts } from './dto/createPosts.dto';
 import { UserProfile } from 'src/users/entities/user-profile.entity';
-import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class PostsService {
@@ -37,6 +36,21 @@ export class PostsService {
     await this.userProfileRepo.save(foundUser);
 
     return postedRecipe;
+  }
+
+  async savePost(userID: string) {
+    const foundUser = await this.userProfileRepo.findOne({
+      where: { userProfile: { id: userID } },
+      relations: {
+        posts: true,
+      },
+    });
+
+    if (!foundUser) {
+      throw new NotFoundException('User does not exist');
+    }
+
+    return;
   }
 
   findAll() {

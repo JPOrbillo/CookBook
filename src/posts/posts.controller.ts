@@ -22,12 +22,15 @@ export class PostsController {
   @UseGuards(JwtAuthGuard)
   @Post('postRecipe')
   create(@Body() createPostDto: createPosts, @Request() req: any) {
+    console.log(createPostDto);
     return this.postsService.createPost(createPostDto, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('savePost')
-  savePost() {}
+  savePost(@Request() req: any) {
+    return this.postsService.savePost(req.user.id);
+  }
 
   @Get()
   findAll() {

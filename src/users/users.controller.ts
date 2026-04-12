@@ -12,12 +12,13 @@ import {
 import { UsersService } from './users.service';
 import { ChangeUserPasswordDto } from './dto/change-userPassword.dto';
 import { JwtAuthGuard } from 'src/resources/guards/jwt.auth-guard';
+import { LocalAuthGuard } from 'src/resources/guards/local-auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, LocalAuthGuard)
   @Get('allUsers')
   async findAll() {
     return this.usersService.findAll();
@@ -31,12 +32,13 @@ export class UsersController {
 
   //calls the changePassword method in the service for the logic to change password
 
+  @UseGuards(JwtAuthGuard)
   @Patch('changePass/:username')
   changePassword(
-    @Param('username') id: string,
+    @Request() req: any,
     @Body() changeUserPasswordDto: ChangeUserPasswordDto,
   ) {
-    return this.usersService.changePassword(id, changeUserPasswordDto);
+    return this.usersService.changePassword(req.user.id, changeUserPasswordDto);
   }
 
   @Delete(':id')
