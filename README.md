@@ -1,8 +1,29 @@
 ## To-do List
 
-- Add entities that is required for the backend
+**different workflows**
+change password = requires old password
+
+## FORGET PASSWORD WORKFLOW
+
+forget password = dont need old password
+
+- the method will not have guards
+- user send email on request body Method: POST
+- validate the email and return a JWT Token
+- JWT Token user payload will be the reference user for the change password
+
+## reset password:
+
+- use forget password JWT
+- request user will be the reference for the password reset
+- required body new password Method: PATCH
+- testing of the new password on login request
 
 ## Project Progress
+
+- Add entities that is required for the backend
+
+- google signin
 
 - Jwt Passports + Local passport for auth guards
 

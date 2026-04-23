@@ -20,17 +20,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       );
     }
 
-    const callbackURL = configService.get<string>('CALLBACK_URL');
-    if (!callbackURL) {
-      throw new Error(
-        'CALLBACK_URL cannot be found in the configuration environment.',
-      );
-    }
-
     super({
       clientID: clientID,
       clientSecret: clientSecret,
-      callbackURL: callbackURL,
+      callbackURL: 'http://localhost:3000/auth/google/callback',
+      scope: ['email', 'profile'],
     });
   }
 
@@ -42,9 +36,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   ): Promise<any> {
     const { name, emails, photos } = profile;
     const user = {
-      email: emails[0].value,
-      firstName: name.givenName,
-      lastName: name.familyName,
+      id: profile.id,
+      username: emails[0].value,
+      firstname: name.givenName,
+      lastname: name.familyName,
       picture: photos[0].value,
       accessToken,
     };

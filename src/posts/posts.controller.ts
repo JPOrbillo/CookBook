@@ -14,6 +14,7 @@ import { createPosts } from './dto/createPosts.dto';
 import { PostsService } from './posts.service';
 import { updatePosts } from './dto/update-post.dto';
 import { JwtAuthGuard } from 'src/resources/guards/jwt.auth-guard';
+import { GoogleAuthGuard } from 'src/resources/guards/google.auth-guard';
 
 @Controller('posts')
 export class PostsController {

@@ -78,16 +78,22 @@ export class AuthService {
   }
   //**************************************************************************************//
   async login(user: User): Promise<{ token: string } | null> {
+    const userCheck = await this.repo.findOne({
+      where: { username: user.username },
+    });
+
     const payload = {
       user: user.firstname + ' ' + user.lastname,
       sub: user.id,
     };
-    if (!user) {
-      return null;
+    if (!userCheck) {
+      throw new Error('Invalid profile information received from Google');
     }
 
     return {
       token: this.jwtService.sign(payload),
     };
   }
+
+  async googleLogin(req: any) {}
 }
